@@ -1,6 +1,6 @@
 import { Box, Flex, VStack, Heading, Checkbox, Button } from "@chakra-ui/react";
 import { Formik , Form} from "formik";
-import InputRecover from "../../components/common/inputRecover";
+import InputRecover from "../../components/common/InputRecover";
 import * as Yup from 'yup';
 import axios from 'axios';
 import { useContext } from "react";
