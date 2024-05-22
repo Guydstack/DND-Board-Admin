@@ -18,7 +18,7 @@ function useLogin() {
                 "Content-Type":"application/json"
             },
             data:values,
-            withCredentials: true,
+            withCredentials:true
         }),
         onError:(err) => {
             console.log(err)
@@ -26,7 +26,6 @@ function useLogin() {
         },
         onSuccess:(res) => {
             console.log(res)
-            localStorage.setItem('token', res.data.token); // Store the token in localStorage
             setIsAuth(true)
             setUserProfile(res.data.manager)
             navigate('/products')
