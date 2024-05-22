@@ -10,14 +10,21 @@ import { AuthContext } from "../context/AuthContext"
 function useAuth() {
 const { setIsAuth, setOnLoad } = useContext(AuthContext)
 
-const { isSuccess, isError } = useQuery({
-    queryKey:['auth'],
-    queryFn:async () => await axios.get(`${import.meta.env.VITE_URL_BACKEND}/users/managers/auth`,{withCredentials : true}),
-    refetchOnMount:false,
-    refetchOnWindowFocus:false,
-    refetchOnReconnect:false,
-    retry:false
-})
+  const { isSuccess, isError } = useQuery({
+    queryKey: ['auth'],
+    queryFn: async () => {
+      const token = localStorage.getItem('token');
+      return await axios.get(`${import.meta.env.VITE_URL_BACKEND}/users/managers/auth`,{withCredentials : true},{
+        headers: {
+          "Authorization": `Bearer ${token}`
+        }
+      });
+    },
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: false,
+    retry: false
+  });
 
 useEffect(() => {
 isSuccess && setIsAuth(true)
