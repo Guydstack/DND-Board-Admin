@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState } from "react";
 import { Toast } from "../lib";
 import axios from 'axios';
 
@@ -16,16 +16,13 @@ function AuthProvider({ children }) {
   const [userProfile,setUserProfile] = useState(null)
 
     //אחראי להכניס אותנו לאפליקציה
-  const [isAuth, setIsAuth] = useState(false)
+    const [isAuth, setIsAuth] = useState(() => {
+    return !!localStorage.getItem('token');
+  });
+  
   const [onLoad,setOnLoad] = useState(false)
 
-    useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      setIsAuth(true);
-    }
-    setOnLoad(true);
-  }, []);
+
 
   //Real time Users
   const [loadingUser, setLoadingUser] = useState(false);
