@@ -18,7 +18,6 @@ function useLogin() {
                 "Content-Type":"application/json"
             },
             data:values,
-            withCredentials:true
         }),
         onError:(err) => {
             console.log(err)
