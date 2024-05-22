@@ -19,6 +19,14 @@ function AuthProvider({ children }) {
   const [isAuth, setIsAuth] = useState(false)
   const [onLoad,setOnLoad] = useState(false)
 
+    useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      setIsAuth(true);
+    }
+    setOnLoad(true);
+  }, []);
+
   //Real time Users
   const [loadingUser, setLoadingUser] = useState(false);
 
