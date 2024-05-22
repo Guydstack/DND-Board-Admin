@@ -14,7 +14,7 @@ const { setIsAuth, setOnLoad } = useContext(AuthContext)
     queryKey: ['auth'],
     queryFn: async () => {
       const token = localStorage.getItem('token');
-      return await axios.get(`${import.meta.env.VITE_URL_BACKEND}/users/managers/auth`,{withCredentials : true},{
+      return await axios.get(`${import.meta.env.VITE_URL_BACKEND}/users/managers/auth`, {
         headers: {
           "Authorization": `Bearer ${token}`
         }
