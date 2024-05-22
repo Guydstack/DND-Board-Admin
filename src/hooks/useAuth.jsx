@@ -20,7 +20,7 @@ const { setIsAuth, setOnLoad } = useContext(AuthContext)
         }
       });
     },
-    refetchOnMount: false,
+    refetchOnMount: true,
     refetchOnWindowFocus: false,
     refetchOnReconnect: false,
     retry: false
