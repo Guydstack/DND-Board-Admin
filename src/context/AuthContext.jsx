@@ -16,9 +16,7 @@ function AuthProvider({ children }) {
   const [userProfile,setUserProfile] = useState(null)
 
     //אחראי להכניס אותנו לאפליקציה
-    const [isAuth, setIsAuth] = useState(() => {
-    return !!localStorage.getItem('token');
-  });
+    const [isAuth, setIsAuth] = useState(false)
   
   const [onLoad,setOnLoad] = useState(false)
 
