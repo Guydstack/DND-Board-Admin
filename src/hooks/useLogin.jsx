@@ -25,7 +25,6 @@ function useLogin() {
             Toast(err.response.data.message,false)
         },
         onSuccess:(res) => {
-            console.log(res)
             setIsAuth(true)
             setUserProfile(res.data.manager)
             navigate('/products')
