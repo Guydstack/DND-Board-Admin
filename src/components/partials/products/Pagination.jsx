@@ -5,7 +5,6 @@ function Pagination({ pages, currentPage, setPage }) {
 
     const pageNumbers= [];
 
-    // for(let i = 1; i <= Math.ceil(totalProducts / productPerPage);i++) pageNumbers.push(i);
     for(let i = 1 ; i <= pages ;i++) pageNumbers.push(i);
 
 
