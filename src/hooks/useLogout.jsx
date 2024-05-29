@@ -4,11 +4,6 @@ import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { Toast } from "../lib";
 
-//useQuery - עושה שימוש בuseEffect;
-
-//useMutation - מספק לנו פונקציה בשם 
-//mutate שאנחנו יכולים להגדיר לבקשה מתי אנחנו רוצים שהיא תשלח
-
 
 function useLogout() {
 
