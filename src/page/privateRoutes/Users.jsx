@@ -17,8 +17,8 @@ function Users() {
     try {
       const users = [];
       const referece = ref(rtdb,"users");
-     const response = await get(referece);
-     const data = response.exists() && await response.val();
+      const response = await get(referece);
+      const data = response.exists() && await response.val();
      
      if (!data) return [];
 
@@ -53,7 +53,6 @@ const { isLoading , isError , error , data, refetch } = useQuery({
     {isError && <span>{error.message}</span>}
     {data && data.length === 0 && <span>No Users</span>}
     {data && data.length > 0 && <UsersTable users={data} />}
-    {/* {data && <UsersTable users={data} />} */}
   </Container>
   )
 }
