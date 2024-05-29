@@ -19,7 +19,6 @@ function Products() {
       queryFn:async() => await axios.get(url),
       select:(res) => res.data,
       staleTime:1000 * 60,
-      // gcTime:1000 * 60 * 60 * 24
     });
 
 
