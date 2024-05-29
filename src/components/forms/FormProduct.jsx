@@ -13,8 +13,6 @@ import { AuthContext } from "../../context/AuthContext";
 import {useMutation, useQueryClient} from "@tanstack/react-query"
 import { Toast } from "../../lib";
 import SelectCategory from "../partials/products/SelectCategory";
-//אם יש לכם טופס שמכיל קובץ - שולחים פורמט form-data
-//אם אין לכם טופס שמכיל קובץ - שולחחם json
 
 
 
@@ -67,37 +65,6 @@ useEffect(() => {
       });
   }
 
-  // async function handleSubmit(e) {
-  //   const formData = new FormData(form.current);
-  //   formData.append("product_image", productImage);
-   
-  //   try {
-  //     e.preventDefault();
-  //     setIsLoading(true);
-  //     const response = await axios({
-  //       url: url,
-  //       method: method,
-  //       data: formData,
-  //       headers: {
-  //         "Content-Type": "multipart/form-data",
-  //       },
-  //     });
-  //     const data = response.data;
-  //     if (data.success) {
-  //       triggerTost(data.message,true)
-  //       setError("");
-  //       onClose();
-  //       setSendNewRequest((prev) => !prev);
-  //       form.current.reset();
-  //     }
-  //   } catch (error) {
-  //     const message = error.response.data.message;
-  //     setError(message);
-  //     triggerTost(message,false)
-  //   } finally {
-  //     setIsLoading(false);
-  //   }
-  // }
 
   return (
     <Container>
