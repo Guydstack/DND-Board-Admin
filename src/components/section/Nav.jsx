@@ -70,23 +70,6 @@ const MenuLinks = ({ isOpen }) => {
         direction={["column", "row", "row"]}
         pt={[4, 4, 0, 0]}
       >
-       {/* <MenuItem to="/report" color={["white", "white", "green.500"]}>
-           Reports
-        </MenuItem> */}
-
-        {/* <MenuItem to="/contact-forms" color={["white", "white", "green.500"]}>
-           Contacts
-        </MenuItem> */}
-
-        {/* <MenuItem to="/users" color={["white", "white", "green.500"]}>
-           Users
-        </MenuItem> */}
-
-        {/* <MenuItem to="/categories" color={["white", "white", "green.500"]}>
-          Categories
-        </MenuItem> */}
-
-        {/* <MenuItem to="/" color={['white','white','green.500']}>Login</MenuItem> */}
 
         <MenuItem to="/report" color={["white", "white", "green.500"]}>
         <Button
