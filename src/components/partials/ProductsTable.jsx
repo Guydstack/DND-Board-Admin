@@ -43,18 +43,6 @@ function ProductsTable({ products }) {
     }
   })
 
-  // async function deleteProduct(id) {
-  //   try {
-  //     const response = await axios.delete(
-  //       `http://localhost:4000/products/managers/delete/${id}`
-  //     );
-  //     setSendNewRequest((prev) => !prev);
-  //     if (response.data.success) Toast(response.data.message, true);
-  //   } catch (error) {
-  //     console.log(error);
-  //     Toast(error.response.data.message, false);
-  //   }
-  // }
 
   function openModalProduct(product) {
     onOpen();
