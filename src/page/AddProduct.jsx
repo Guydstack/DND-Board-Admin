@@ -7,12 +7,6 @@ const method = 'POST'
 
 
 function AddProduct() {
-
-  // const { setProduct ,product} = useContext(AuthContext);
- 
-  // useEffect(() => {
-  //   setProduct(null)
-  //   },[product])
     
   return (
     <FormProduct url={url} method={method}/>  
