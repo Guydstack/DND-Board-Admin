@@ -37,7 +37,6 @@ function App() {
       <Route path="/" element={<Root isAuth={isAuth} />}>
 
         <Route errorElement={<Login />} element={isAuth ? <Navigate to={"/products"}/> : <Outlet />}>
-          {/* <Route index element={<Login />}/> */}
           <Route index element={!onLoad ? <Suspense fallback={<Spinner />}></Suspense> : <Login />} />
 
         </Route>
