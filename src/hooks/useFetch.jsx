@@ -1,6 +1,3 @@
-//2 חוקים לייצר הוקים  
-//1.חייב להכיל בתוכו הוק או להכיל עוד Customhook בתוכו
-//2.חייב להתחיל בuse
 import {useEffect, useState} from 'react';
 import axios from 'axios';
 import { useContext } from 'react';
