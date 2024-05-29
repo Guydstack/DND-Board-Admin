@@ -68,7 +68,6 @@ function LoginForm () {
             .max(28,"Password too Long!")
           })}
           onSubmit={(values,actions) => {
-            console.log(values.manager_password);
             mutate(values)
             actions.resetForm();
           }}
