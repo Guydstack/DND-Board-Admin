@@ -9,7 +9,7 @@ function DarkMode() {
         <Button type='button' onClick={toggleColorMode}>
      {colorMode === 'light' ?
       <MoonIcon bgSize={30} color={'green.500'}/>
-       : <SunIcon bgSize={30} color={{base:'white' , md:'green.500'}} />}
+       : <SunIcon bgSize={30} color={{base:'white' , lg:'green.500'}} />}
         </Button>
     )
 }
