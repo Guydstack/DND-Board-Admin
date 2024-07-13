@@ -10,7 +10,7 @@ import { AuthContext } from "../../context/AuthContext";
 
 function Reset() {
 
-  const { email , setPage } = useContext(AuthContext);
+  const { email , setPage, setLoadingRecover } = useContext(AuthContext);
   const url = `${import.meta.env.VITE_URL_BACKEND}/users/update-password-managers/${email}`
 
  async function changePassword(values) {
@@ -18,10 +18,11 @@ function Reset() {
      const { data } = await axios.put(url,{manager_password:values.manager_password});
      if(!data.success) return;
      setPage('recovered')
+     setLoadingRecover(false)
     } catch (error) {
       console.log(error)
     }
-  }
+  };
 
   return (
     <Box>
@@ -43,6 +44,7 @@ function Reset() {
           if(manager_password !== confirm_password) return alert('passwords must be same')
           changePassword(values)
           actions.resetForm();
+          setLoadingRecover(true)
          }}
         >
         <VStack
