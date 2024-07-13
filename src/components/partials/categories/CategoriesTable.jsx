@@ -18,15 +18,19 @@ import {
     ExternalLinkIcon,
   } from "@chakra-ui/icons";
   import CategoriesModal from "./CategoriesModal";
-  import { useState } from "react";
+  import { useState, useContext } from "react";
   import { useMutation , useQueryClient } from '@tanstack/react-query';
   import axios from 'axios';
   import { Toast, exportToExel } from "../../../lib";
+  import { AuthContext } from "../../../context/AuthContext";
+
   
   function CategoriesTable({ categories }) {
   
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [category, setCategory] = useState(null)
+    const { userProfile } = useContext(AuthContext);
+
   
     const queryClient = useQueryClient();
   
@@ -43,7 +47,23 @@ import {
           Toast(err.response.data.message, false);
           console.log(err)
       }
-    })
+    });
+
+    const handleDeleteClick = (id) => {
+      if (userProfile?.permission === 1) {
+        mutate(id);
+      } else {
+        Toast("You are not allowed to delete Category.", false);
+      }
+    };
+  
+    const handleUpdateClick = (category) => {
+      if (userProfile?.permission === 1) {
+        openModalCategories(category);
+      } else {
+        Toast("You are not allowed to update Categories.", false);
+      }
+    };
   
     function openModalCategories(cat){
       setCategory(cat)
@@ -84,14 +104,14 @@ import {
                       textAlign={'center'}
                         colorScheme="whiteAlpha"
                         type="button"
-                        onClick={() => mutate(category._id)}
+                        onClick={() => handleDeleteClick(category._id)}
                         title="Delete"
                       >
                         <DeleteIcon bgSize={25} color={"red.300"} />
                       </Button>
                       <Button
                         textAlign={'center'}
-                        onClick={() => openModalCategories(category)}
+                        onClick={() => handleUpdateClick(category)}
                         colorScheme="blackAlpha"
                         type="button"
                         title="Update"
