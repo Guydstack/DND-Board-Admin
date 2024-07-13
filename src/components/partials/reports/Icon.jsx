@@ -1,6 +1,10 @@
 import { Box , Button , Text} from "@chakra-ui/react";
+import { useNavigate } from 'react-router-dom';
 
 function Icon({ icon , title}) {
+
+  const navigate = useNavigate();
+
   return (
     <Box
     color={'gray.200'}
@@ -15,6 +19,7 @@ function Icon({ icon , title}) {
             h={'full'}
             p={4}
             _hover={{dropShadow:'2xl'}}
+            onClick={() => navigate(title === 'Customers' ? '/users' : '/orders')}
             >
              {icon}
             </Button>
