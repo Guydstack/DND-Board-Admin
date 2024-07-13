@@ -18,11 +18,12 @@ const Nav = () => {
     wrap="wrap"
     w="100%"
     mb={8}
-    p={8}
-    bg={["green.500", "green.500", "transparent"]}
-    color={["white", "white", "green.700"]}
-  >
-    <Flex gap={4}>
+    p={4}
+    bg={{ base: "green.500", lg: "transparent" }}
+    color={{ base: "white", lg: "green.700" }}
+    boxShadow="md"
+    >
+    <Flex gap={4} align="center">
       <DarkMode />
       <Logout />
     </Flex>
@@ -34,7 +35,7 @@ const Nav = () => {
 
 const MenuToggle = ({ toggle, isOpen }) => {
   return (
-    <Box display={['block','block','none']} onClick={toggle}>
+    <Box display={{ base: 'block', lg: 'none' }} onClick={toggle}>
       {isOpen ? <TfiClose color="white" size={40}/> : <FaBars color="white" size={40} />}
     </Box>
   );
@@ -53,113 +54,45 @@ const MenuItem = ({ children, isLast, to = "/", ...rest }) => {
 const MenuLinks = ({ isOpen }) => {
     
     const location = useLocation();
+
     // Function to check if a MenuItem is active based on its route
     const isMenuItemActive = (menuItemRoute) => {
-      return location.pathname === menuItemRoute;
-    };
+    return location.pathname === menuItemRoute;
+  };
 
   return (
     <Box
-      display={{ base: isOpen ? "block" : "none", md: "block" }}
-      flexBasis={{ base: "100%", md: "auto" }}
+      display={{ base: isOpen ? "block" : "none", lg: "block" }}
+      flexBasis={{ base: "100%", lg: "auto" }}
     >
       <Stack
-        spacing={8}
+        spacing={4}
         align="center"
-        justify={["center", "space-between", "flex-end"]}
-        direction={["column", "row", "row"]}
-        pt={[4, 4, 0, 0]}
+        justify={["center", "center", "flex-end"]}
+        direction={{ base: "column", lg: "row" }}
+        pt={{ base: 4, lg: 0 }}
       >
 
-        <MenuItem to="/report" color={["white", "white", "green.500"]}>
-        <Button
-            isActive={isMenuItemActive('/report')}
-            size="sm"
-            rounded="md"
-            color={["green.500", "green.500", "white"]}
-            bg={["white", "white", "green.500"]}
-            _hover={{
-              bg: ["green.100", "green.100", "green.600"]
-            }}
-          >
-           Reports
-        </Button>
-        </MenuItem>
-
-        <MenuItem to="/contact-forms" color={["white", "white", "green.500"]}>
-        <Button
-            isActive={isMenuItemActive('/contact-forms')}
-            size="sm"
-            rounded="md"
-            color={["green.500", "green.500", "white"]}
-            bg={["white", "white", "green.500"]}
-            _hover={{
-              bg: ["green.100", "green.100", "green.600"]
-            }}
-          >
-           Contacts
-        </Button>
-        </MenuItem>
-
-        <MenuItem to="/users" color={["white", "white", "green.500"]}>
-        <Button
-            isActive={isMenuItemActive('/users')}
-            size="sm"
-            rounded="md"
-            color={["green.500", "green.500", "white"]}
-            bg={["white", "white", "green.500"]}
-            _hover={{
-              bg: ["green.100", "green.100", "green.600"]
-            }}
-          >
-           Users
-        </Button>
-        </MenuItem>
-
-        <MenuItem to="/categories" color={["white", "white", "green.500"]}>
-        <Button
-            isActive={isMenuItemActive('/categories')}
-            size="sm"
-            rounded="md"
-            color={["green.500", "green.500", "white"]}
-            bg={["white", "white", "green.500"]}
-            _hover={{
-              bg: ["green.100", "green.100", "green.600"]
-            }}
-          >
-           Categories
-        </Button>
-        </MenuItem>
-
-        <MenuItem to="/orders" color={["white", "white", "green.500"]}>
-        <Button
-            isActive={isMenuItemActive('/orders')}
-            size="sm"
-            rounded="md"
-            color={["green.500", "green.500", "white"]}
-            bg={["white", "white", "green.500"]}
-            _hover={{
-              bg: ["green.100", "green.100", "green.600"]
-            }}
-          >
-           Orders
-        </Button>
-        </MenuItem>
-
-        <MenuItem to="/products" isLast>
-          <Button
-            isActive={isMenuItemActive('/products')}
-            size="sm"
-            rounded="md"
-            color={["green.500", "green.500", "white"]}
-            bg={["white", "white", "green.500"]}
-            _hover={{
-              bg: ["green.100", "green.100", "green.600"]
-            }}
-          >
-           Product
-          </Button>
-        </MenuItem>
+        {["report", "contact-forms", "users", "categories", "orders", "products"].map((route) => (
+          <MenuItem key={route} to={`/${route}`} color={{ base: "white", lg: "green.500" }}>
+            <Button
+              isActive={isMenuItemActive(`/${route}`)}
+              size="sm"
+              rounded="md"
+              color={{ base: "green.500", lg: "white" }}
+              bg={{ base: "white", lg: "green.500" }}
+              width="120px"
+              _hover={{
+                bg: { base: "green.100", lg: "green.600" }
+              }}
+              _active={{
+                bg: { base: "green.200", lg: "green.700" }
+              }}
+            >
+              {route.charAt(0).toUpperCase() + route.slice(1)}
+            </Button>
+          </MenuItem>
+        ))}
         
       </Stack>
     </Box>
@@ -167,6 +100,3 @@ const MenuLinks = ({ isOpen }) => {
 };
 
 export default Nav;
-
-
-
