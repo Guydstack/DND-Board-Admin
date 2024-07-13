@@ -8,14 +8,13 @@ import {
     PinInputField,
     HStack,
   } from "@chakra-ui/react";
-  import { useContext } from "react";
-  import { useState } from "react";
+  import { useState, useEffect, useContext } from "react";
   import { AuthContext } from "../../context/AuthContext";
-  import { useEffect } from "react";
+  
   
   function OtpIntput() {
     const { otp , setPage , nagigateToOtp} = useContext(AuthContext);
-    const [OTPinput,setOTPinput] = useState([0,0,0,0])
+    const [OTPinput,setOTPinput] = useState(['','','','']);
     const [timerCount,setTimeCount] = useState(60);
     const [disable,setDisable] = useState(true);
   
@@ -41,7 +40,23 @@ import {
      },1000);
   
      return () => clearInterval(interval);
-    },[disable])
+    },[disable]);
+
+    const handlePaste = (e) => {
+      const pastedData = e.clipboardData.getData('text').slice(0, 4);
+      const updatedOTP = Array.from(pastedData).concat(['', '', '', '']).slice(0, 4); // Ensure array length is 4
+      setOTPinput(updatedOTP)  
+    };
+
+    const handleChange = (index, value) => {
+      const newOTP = [...OTPinput];
+      newOTP[index] = value;
+      setOTPinput(newOTP);
+    };
+
+    const handleFocus = (e) => {
+      e.target.select(); // Select/highlight the text inside the input field
+    };
     
     return (
       <Flex h={"100vh"} justify={"center"} align={"center"}>
@@ -79,46 +94,35 @@ import {
                 <VStack my={5}>
                   <Flex className="flex flex-row items-center justify-between mx-auto w-full max-w-xs">
                     <HStack>
-                      <PinInput>
+                      <PinInput >
                         <PinInputField
-                          onChange={(e) =>
-                            setOTPinput([
-                              e.target.value,
-                              OTPinput[1],
-                              OTPinput[2],
-                              OTPinput[3],
-                            ])
-                          }
+                          type="text"
+                          value={OTPinput[0]}
+                          onKeyUp={(e) => handleChange(0, e.target.value)}
+                          onChange={(e) => handleChange(0, e.target.value)}
+                          onPaste={handlePaste}
+                          onFocus={handleFocus}
                         />
                         <PinInputField
-                          onChange={(e) =>
-                            setOTPinput([
-                              OTPinput[0],
-                              e.target.value,
-                              OTPinput[2],
-                              OTPinput[3],
-                            ])
-                          }
+                          type="text"
+                          value={OTPinput[1]}
+                          onKeyUp={(e) => handleChange(1, e.target.value)}
+                          onChange={(e) => handleChange(1, e.target.value)}
+                          onPaste={handlePaste}
                         />
                         <PinInputField
-                          onChange={(e) =>
-                            setOTPinput([
-                              OTPinput[0],
-                              OTPinput[1],
-                              e.target.value,
-                              OTPinput[3],
-                            ])
-                          }
+                          type="text"
+                          value={OTPinput[2]}
+                          onKeyUp={(e) => handleChange(2, e.target.value)}
+                          onChange={(e) => handleChange(2, e.target.value)}
+                          onPaste={handlePaste}
                         />
                         <PinInputField
-                          onChange={(e) =>
-                            setOTPinput([
-                              OTPinput[0],
-                              OTPinput[1],
-                              OTPinput[2],
-                              e.target.value,
-                            ])
-                          }
+                          type="text"
+                          value={OTPinput[3]}
+                          onKeyUp={(e) => handleChange(3, e.target.value)}
+                          onChange={(e) => handleChange(3, e.target.value)}
+                          onPaste={handlePaste}
                         />
                       </PinInput>
                     </HStack>
