@@ -22,7 +22,7 @@ import {useMutation, useQueryClient} from "@tanstack/react-query"
 
 
 function ProductsTable({ products }) {
-  const { setProduct } = useContext(AuthContext);
+  const { setProduct, userProfile } = useContext(AuthContext);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [selectedProductId, setSelectedProductId] = useState(null);
   const queryClient = useQueryClient();
@@ -43,6 +43,21 @@ function ProductsTable({ products }) {
     }
   })
 
+ const handleDeleteClick = (id) => {
+    if (userProfile?.permission === 1) {
+      mutate(id);
+    } else {
+      Toast("You are not allowed to delete products.", false);
+    }
+  };
+
+  const handleUpdateClick = (product) => {
+    if (userProfile?.permission === 1) {
+      openModalProduct(product);
+    } else {
+      Toast("You are not allowed to update products.", false);
+    }
+  };
 
   function openModalProduct(product) {
     onOpen();
@@ -94,12 +109,12 @@ function ProductsTable({ products }) {
                     colorScheme="whiteAlpha"
                     type="button"
                     title="Delete Product"
-                    onClick={() => mutate(product._id)}
+                    onClick={() => handleDeleteClick(product._id)}
                   >
                     <DeleteIcon bgSize={25} color={"red.300"} />
                   </Button>
                   <Button
-                    onClick={() => openModalProduct(product)}
+                    onClick={() => handleUpdateClick(product)}
                     colorScheme="blackAlpha"
                     type="button"
                     title="Update Product"
