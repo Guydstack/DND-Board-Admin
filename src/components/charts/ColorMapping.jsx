@@ -1,18 +1,54 @@
-import React from 'react'
 import { Category, ChartComponent, ColumnSeries, Inject, LineSeries, SeriesCollectionDirective, SeriesDirective, Tooltip } from '@syncfusion/ej2-react-charts'
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import { useEffect, useState } from 'react';
 
-export let data = [
-  { month: 'Jan', sales: 35 }, { month: 'Feb', sales: 28 },
-  { month: 'Mar', sales: 34 }, { month: 'Apr', sales: 32 },
-  { month: 'May', sales: 40 }, { month: 'Jun', sales: 32 },
-  { month: 'Jul', sales: 35 }, { month: 'Aug', sales: 55 },
-  { month: 'Sep', sales: 38 }, { month: 'Oct', sales: 30 },
-  { month: 'Nov', sales: 25 }, { month: 'Dec', sales: 32 }
+const url = `${import.meta.env.VITE_URL_BACKEND}/orders/managers/all`;
+
+export let Orderers = [
+  { month: 'Jan', sales: 0 }, { month: 'Feb', sales: 0 },
+  { month: 'Mar', sales: 0 }, { month: 'Apr', sales: 0 },
+  { month: 'May', sales: 0 }, { month: 'Jun', sales: 0 },
+  { month: 'Jul', sales: 0 }, { month: 'Aug', sales: 0 },
+  { month: 'Sep', sales: 0 }, { month: 'Oct', sales: 0 },
+  { month: 'Nov', sales: 0 }, { month: 'Dec', sales: 0 }
 ];
+
 const primaryxAxis = { valueType: 'Category', title:'Month', titleStyle: {color:'white', fontFamily:'Arial'}, majorGridLines: {width:0} };
 const primaryYAxis = { lineStyle: {width:0}, majorTickLines: {width:0}, minorTickLines: {width:0}, title:'Units', titleStyle: {color:'white', fontFamily:'Arial'}, labelFormat: "{value}"};
 
 function ColorMapping() {
+
+  const [orderData, setOrderData] = useState(Orderers);
+
+     //request for get all Orders
+    const { isError, isLoading, data, error } = useQuery({
+      queryKey: ["get_orders"],
+      queryFn: async () => await axios.get(url),
+      select: (res) => res.data.orders,
+      staleTime: 1000 * 60,
+    });
+
+    useEffect(() => {
+      if (data) {
+        // Create a map to count the occurrences of orders in each month
+        const monthCounts = data.reduce((acc, order) => {
+          const month = new Date(order.created_at).toLocaleString('default', { month: 'short' });
+          acc[month] = (acc[month] || 0) + 1;
+          return acc;
+        }, {});
+  
+        // Update the Orderdata array based on monthCounts
+        const updatedOrderData = Orderers.map(item => ({
+          ...item,
+          sales: monthCounts[item.month] || 0
+        }));
+  
+        setOrderData(updatedOrderData);
+      }
+    }, [data]);
+
+        
   return (
     <ChartComponent
     width='full'
@@ -31,7 +67,7 @@ function ColorMapping() {
     <Inject services={[ColumnSeries, Tooltip, LineSeries, Category]}/>
     <SeriesCollectionDirective>
       <SeriesDirective 
-      dataSource={data} 
+      dataSource={orderData}  
       xName='month' 
       yName='sales' 
       name='Orders'
