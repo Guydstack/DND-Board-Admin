@@ -25,6 +25,7 @@ function useLogin() {
             Toast(err.response.data.message,false)
         },
         onSuccess:(res) => {
+            localStorage.setItem('token', res.data.token)
             setIsAuth(true)
             setUserProfile(res.data.manager)
             navigate('/products')
