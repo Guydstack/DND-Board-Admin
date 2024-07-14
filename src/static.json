@@ -1,0 +1,14 @@
+{
+  "routes": {
+    "/api/*": {
+      "proxy": {
+        "origin": "https://dnd-board.onrender.com",
+        "forward": {
+          "headers": {
+            "X-Forwarded-Host": "https://dnd-board-admin.onrender.com"
+          }
+        }
+      }
+    }
+  }
+}
