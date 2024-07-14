@@ -33,10 +33,12 @@ const useLogout = () => {
   const { mutate } = useMutation({
     mutationFn: async () => {
       const token = localStorage.getItem('token');
-      return await axios.get('/users/managers/logout', {
+      console.log("Token for logout:", token);
+      return await axios.get(`${import.meta.env.VITE_URL_BACKEND}/users/managers/logout`, {
         headers: {
           Authorization: `Bearer ${token}`
-        }
+        },
+        withCredentials: true,
       });
     },
     onSuccess: (res) => {
