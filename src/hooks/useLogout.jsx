@@ -11,8 +11,8 @@ function useLogout() {
 const {setIsAuth , setUserProfile} = useContext(AuthContext)
 
 const {mutate} = useMutation({
-
-    mutationFn:async () => await axios.get(`${import.meta.env.VITE_URL_BACKEND}/users/managers/logout`,{withCredentials:true}),
+// `${import.meta.env.VITE_URL_BACKEND}/users/managers/logout`
+    mutationFn:async () => await axios.get('/api/users/managers/logout',{withCredentials:true}),
     onSuccess:(res) => {
         setIsAuth(false)
         setUserProfile(null)
