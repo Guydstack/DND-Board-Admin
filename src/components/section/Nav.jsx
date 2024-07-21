@@ -5,6 +5,8 @@ import { TfiClose } from "react-icons/tfi";
 import { Link, useLocation } from 'react-router-dom';
 import DarkMode from "../partials/DarkMode";
 import Logout from "../common/Logout";
+import { AuthContext } from "../../context/AuthContext";
+import { useContext } from "react";
 
 const Nav = () => {
   const [isOpen, setIsOpen] = React.useState(false);
@@ -54,6 +56,15 @@ const MenuItem = ({ children, isLast, to = "/", ...rest }) => {
 const MenuLinks = ({ isOpen }) => {
     
     const location = useLocation();
+    const { userProfile } = useContext(AuthContext);
+
+  // Define the routes
+  const routes = ["report", "contact-forms", "users", "categories", "orders", "products"];
+
+  // Conditionally include "admins" route
+  if (userProfile.permission === 1) {
+    routes.unshift("admins");
+  }
 
     // Function to check if a MenuItem is active based on its route
     const isMenuItemActive = (menuItemRoute) => {
@@ -73,7 +84,7 @@ const MenuLinks = ({ isOpen }) => {
         pt={{ base: 4, lg: 0 }}
       >
 
-        {["report", "contact-forms", "users", "categories", "orders", "products"].map((route) => (
+        {routes.map((route) => (
           <MenuItem key={route} to={`/${route}`} color={{ base: "white", lg: "green.500" }}>
             <Button
               isActive={isMenuItemActive(`/${route}`)}
