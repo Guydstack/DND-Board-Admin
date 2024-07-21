@@ -14,6 +14,7 @@ const Login = lazy(() => import("./page/publicRoutes/Login"));
 const Categories = lazy(() => import("./page/privateRoutes/Categories"));
 const Users = lazy(() => import("./page/privateRoutes/Users"));
 const Report = lazy(() => import("./page/privateRoutes/Report"));
+const Admins = lazy(() => import("./page/privateRoutes/Admins"));
 import Nav from "./components/section/Nav";
 import { AuthContext } from "./context/AuthContext";
 import useAuth from "./hooks/useAuth";
@@ -48,6 +49,7 @@ function App() {
           <Route path="/users" element={<Users />} />
           <Route path="/contact-forms" element={<Contact />} />
           <Route path="/report" element={<Report />} />
+          <Route path="/admins" element={<Admins />} />
         </Route>
       </Route>
     )
