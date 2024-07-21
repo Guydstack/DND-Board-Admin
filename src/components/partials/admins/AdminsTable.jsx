@@ -35,7 +35,7 @@ import {
   
     const { mutate } = useMutation({
       mutationFn: async (id) => await axios.delete(
-        `http://localhost:4000/users/managers/delete-by-id-for-manager/${id}`
+        `${import.meta.env.VITE_URL_BACKEND}/users/managers/delete-by-id-for-manager/${id}`
       ),
       onSuccess:(res) => {
         Toast(res.data.message, true);
