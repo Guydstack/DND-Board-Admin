@@ -9,8 +9,8 @@ import {
   import AdminsForm from "../admins/AdminsForm";
   
   function AdminsModal({ onClose, isOpen, admin }) {
-    const add_url = "http://localhost:4000/users/admins/add-manager";
-    const update_url = `http://localhost:4000/users/managers/update-by-id-for-manager/${admin?._id}`;
+    const add_url = `${import.meta.env.VITE_URL_BACKEND}/users/admins/add-manager`;
+    const update_url = `${import.meta.env.VITE_URL_BACKEND}/users/managers/update-by-id-for-manager/${admin?._id}`;
     return (
       <Modal
         closeOnOverlayClick={false}
