@@ -12,8 +12,7 @@ function Admins() {
   const { isError, isLoading, data, error } = useQuery({
     queryKey: ["get_admins"],
     queryFn: async () => {
-        const token = localStorage.getItem('token'); // Retrieve the token from localStorage
-        const response = await axios.get(url, {headers: { Authorization: `Bearer ${token}` },withCredentials: true});
+        const response = await axios.get(url, {withCredentials: true});
         return response.data; 
       },
     staleTime: 1000 * 60,
