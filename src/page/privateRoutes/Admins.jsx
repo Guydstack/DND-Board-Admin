@@ -8,7 +8,6 @@ const url = `${import.meta.env.VITE_URL_BACKEND}/users/managers/getall`;
 
 
 function Admins() {
-  console.log("API URL:", url);
   //request for get all Mangers
   const { isError, isLoading, data, error } = useQuery({
     queryKey: ["get_admins"],
