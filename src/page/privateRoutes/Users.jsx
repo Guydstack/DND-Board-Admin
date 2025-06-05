@@ -12,23 +12,27 @@ function Users() {
   // Check if user is deleted from RTDB or DB 
   const { loadingUser, setLoadingUser } = useContext(AuthContext);
 
+  const url = `${import.meta.env.VITE_URL_BACKEND}/users/managers/get-users`;
 
   async function getUsers(){
     try {
-      const users = [];
-      const referece = ref(rtdb,"users");
-      const response = await get(referece);
-      const data = response.exists() && await response.val();
-     
-     if (!data) return [];
+      setLoadingUser(true); // Start loading
 
-     for(const id in data){
-      data[id]._id = id;
-      users.push(data[id])
-     }
-     setLoadingUser(false)
-     return users
+      const res = await fetch(url);
+      const data = await res.json();
+
+      if (!Array.isArray(data)) throw new Error("Unexpected data format");
+
+      const users = data.map((user) => ({
+        ...user,
+        _id: user._id || "", 
+      }));
+
+      setLoadingUser(false); // Done loading
+      return users;
+
     } catch (error) {
+      setLoadingUser(false); // Done loading
       throw new Error('Error fetching users: ' + error.message);
     }
   }
